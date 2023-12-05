@@ -7,8 +7,23 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class OperacoesComTransacaoTest extends EntityManagerTest {
+
+    @Test
+    void removerObjeto() {
+        Produto produto = entityManager.find(Produto.class, 3);
+
+        entityManager.getTransaction().begin();
+        entityManager.remove(produto);
+        entityManager.getTransaction().commit();
+
+//        entityManager.clear(); Não é necessário na asserção para operação de remoção
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, 3);
+        assertNull(produtoVerificacao);
+    }
 
     @Test
     void inserirOPrimeiroObjeto() {

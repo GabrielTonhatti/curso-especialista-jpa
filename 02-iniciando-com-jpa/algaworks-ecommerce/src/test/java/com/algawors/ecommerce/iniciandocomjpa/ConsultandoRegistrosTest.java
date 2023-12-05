@@ -1,28 +1,13 @@
 package com.algawors.ecommerce.iniciandocomjpa;
 
+import com.algawors.ecommerce.EntityManagerTest;
 import com.algawors.ecommerce.model.Produto;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class ConsultandoRegistrosTest {
-
-    private EntityManager entityManager;
-    private static EntityManagerFactory entityManagerFactory;
-
-    @BeforeAll
-    public static void setUpBeforeClass() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("Ecommerce-PU");
-    }
-
-    @BeforeEach
-    public void setup() {
-        entityManager = entityManagerFactory.createEntityManager();
-    }
+class ConsultandoRegistrosTest extends EntityManagerTest {
 
     @Test
     void buscarPorIdentificador() {
@@ -43,13 +28,4 @@ class ConsultandoRegistrosTest {
         assertEquals("Kindle", produto.getNome());
     }
 
-    @AfterAll
-    public static void tearDownAfterClass() {
-        entityManagerFactory.close();
-    }
-
-    @AfterEach
-    public void tearDown() {
-        entityManager.close();
-    }
 }

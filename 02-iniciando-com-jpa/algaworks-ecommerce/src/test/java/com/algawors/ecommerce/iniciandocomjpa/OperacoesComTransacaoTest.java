@@ -11,13 +11,27 @@ import static org.junit.jupiter.api.Assertions.*;
 class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
+    void atualizarObjetoGerenciado() {
+        Produto produto = entityManager.find(Produto.class, 1);
+
+        entityManager.getTransaction().begin();
+        produto.setNome("Kindle Paperwhite 2ª Geração");
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        assertEquals("Kindle Paperwhite 2ª Geração", produtoVerificacao.getNome());
+    }
+
+    @Test
     void atualizarObjeto() {
         Produto produto = new Produto();
         produto.setId(1);
         produto.setNome("Kindle Paperwhite");
         produto.setDescricao("Conheça o novo Kindle.");
         produto.setPreco(new BigDecimal(599));
-        
+
         entityManager.getTransaction().begin();
         entityManager.merge(produto);
         entityManager.getTransaction().commit();

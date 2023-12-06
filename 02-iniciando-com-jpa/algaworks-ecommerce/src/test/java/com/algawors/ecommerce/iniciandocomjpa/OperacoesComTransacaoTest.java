@@ -11,6 +11,42 @@ import static org.junit.jupiter.api.Assertions.*;
 class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
+    void mostrarDiferencaPersistMerge() {
+        Produto produtoPersist = new Produto();
+        produtoPersist.setId(5);
+        produtoPersist.setNome("Smartphone One Plus");
+        produtoPersist.setPreco(new BigDecimal(2000));
+        produtoPersist.setDescricao("O processador mais rápido.");
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(produtoPersist);
+        produtoPersist.setNome("Smartphone Two Plus");
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacaoPersist = entityManager.find(Produto.class, produtoPersist.getId());
+        assertNotNull(produtoVerificacaoPersist);
+
+//        ----------------------------------------------
+        Produto produtoMerge = new Produto();
+        produtoMerge.setId(6);
+        produtoMerge.setNome("Notebook Dell");
+        produtoMerge.setPreco(new BigDecimal(2000));
+        produtoMerge.setDescricao("O melhor da categoria.");
+
+        entityManager.getTransaction().begin();
+        produtoMerge = entityManager.merge(produtoMerge);
+        produtoMerge.setNome("Notebook Dell 2");
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacaoMerge = entityManager.find(Produto.class, produtoMerge.getId());
+        assertNotNull(produtoVerificacaoMerge);
+    }
+
+    @Test
     void inserirObjetoComMerge() {
         Produto produto = new Produto();
         produto.setId(4);

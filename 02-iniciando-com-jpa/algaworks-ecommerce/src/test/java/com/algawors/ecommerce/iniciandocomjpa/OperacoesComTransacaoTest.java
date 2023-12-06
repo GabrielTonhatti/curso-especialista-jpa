@@ -11,6 +11,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
+    void impedirOperacaoComBancoDeDados() {
+        Produto produto = entityManager.find(Produto.class, 1);
+        entityManager.detach(produto);
+
+        entityManager.getTransaction().begin();
+        produto.setNome("Kindle Paperwhite 2ª Geração");
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        assertEquals("Kindle", produtoVerificacao.getNome());
+    }
+
+    @Test
     void mostrarDiferencaPersistMerge() {
         Produto produtoPersist = new Produto();
         produtoPersist.setId(5);

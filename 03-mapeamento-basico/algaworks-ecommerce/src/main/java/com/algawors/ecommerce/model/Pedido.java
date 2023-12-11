@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 public class Pedido {
 
     @Id
+    @Column(name = "ID")
     @EqualsAndHashCode.Include
     private Integer id;
 
@@ -31,8 +32,10 @@ public class Pedido {
     @Column(name = "NOTA_FISCAL_ID")
     private Integer notaFiscalId;
 
+    @Column(name = "TOTAL")
     private BigDecimal total;
 
+    @Column(name = "STATUS")
     private StatusPedido status;
 
 }

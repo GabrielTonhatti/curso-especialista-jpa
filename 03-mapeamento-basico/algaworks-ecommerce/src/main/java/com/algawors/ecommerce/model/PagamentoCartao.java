@@ -16,13 +16,16 @@ import lombok.Setter;
 public class PagamentoCartao {
 
     @Id
+    @Column(name = "ID")
     @EqualsAndHashCode.Include
     private Integer id;
 
     @Column(name = "PEDIDO_ID")
     private Integer pedidoId;
 
+    @Column(name = "STATUS")
     private StatusPagamento status;
 
+    @Column(name = "NUMERO")
     private String numero;
 }

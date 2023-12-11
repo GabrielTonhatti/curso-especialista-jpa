@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 public class ItemPedido {
 
     @Id
+    @Column(name = "ID")
     @EqualsAndHashCode.Include
     private Integer id;
 
@@ -30,6 +31,7 @@ public class ItemPedido {
     @Column(name = "PRECO_PRODUTO")
     private BigDecimal precoProduto;
 
+    @Column(name = "QUANTIDADE")
     private Integer quantidade;
 
 }

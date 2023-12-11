@@ -16,12 +16,14 @@ import lombok.Setter;
 public class Estoque {
 
     @Id
+    @Column(name = "ID")
     @EqualsAndHashCode.Include
     private Integer id;
 
     @Column(name = "PRODUTO_ID")
     private Integer produtoId;
 
+    @Column(name = "QUANTIDADE")
     private Integer quantidade;
 
 }

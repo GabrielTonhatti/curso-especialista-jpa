@@ -20,12 +20,14 @@ import java.util.Date;
 public class NotaFiscal {
 
     @Id
+    @Column(name = "ID")
     @EqualsAndHashCode.Include
     private Integer id;
 
     @Column(name = "PEDIDO_ID")
     private Integer pedidoId;
 
+    @Column(name = "XML")
     private String xml;
 
     @Column(name = "DATA_EMISSAO")

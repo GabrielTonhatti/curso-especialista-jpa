@@ -16,9 +16,11 @@ import lombok.Setter;
 public class Categoria {
 
     @Id
+    @Column(name = "ID")
     @EqualsAndHashCode.Include
     private Integer id;
 
+    @Column(name = "NOME")
     private String nome;
 
     @Column(name = "CATEGORIA_PAI_ID")

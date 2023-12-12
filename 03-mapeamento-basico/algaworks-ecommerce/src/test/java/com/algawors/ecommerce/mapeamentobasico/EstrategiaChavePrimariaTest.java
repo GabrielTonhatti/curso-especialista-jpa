@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class EstrategiaChavePrimariaTest extends EntityManagerTest {
 
     @Test
-    void testarEstrategiaAuto() {
+    void testarEstrategiaChave() {
         Categoria categoria = new Categoria();
         categoria.setNome("Eletrônicos");
 

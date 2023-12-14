@@ -28,7 +28,7 @@ class OperacoesComTransacaoTest extends EntityManagerTest {
     @Test
     void mostrarDiferencaPersistMerge() {
         Produto produtoPersist = new Produto();
-        produtoPersist.setId(5);
+//        produtoPersist.setId(5); Comentado porque estamos utilizando IDENTITY
         produtoPersist.setNome("Smartphone One Plus");
         produtoPersist.setPreco(new BigDecimal(2000));
         produtoPersist.setDescricao("O processador mais rápido.");
@@ -129,7 +129,7 @@ class OperacoesComTransacaoTest extends EntityManagerTest {
     @Test
     void inserirOPrimeiroObjeto() {
         Produto produto = new Produto();
-        produto.setId(2);
+//        produto.setId(2); Comentado porque estamos utilizando IDENTITY
         produto.setNome("Câmera Canon");
         produto.setPreco(new BigDecimal(5000));
         produto.setDescricao("A melhor definição para suas fotos");

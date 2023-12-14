@@ -11,7 +11,7 @@ class PrimeiroCrudTest extends EntityManagerTest {
     @Test
     void inserirRegistro() {
         Cliente cliente = new Cliente();
-        cliente.setId(3);
+//        cliente.setId(3); Comentado porque estamos utilizando IDENTITY
         cliente.setNome("Carlos Finotti");
 
         entityManager.getTransaction().begin();

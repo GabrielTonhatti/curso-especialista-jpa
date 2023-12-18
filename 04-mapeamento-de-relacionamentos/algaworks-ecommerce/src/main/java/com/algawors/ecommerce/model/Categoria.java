@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -21,7 +23,10 @@ public class Categoria {
     @Column(name = "NOME")
     private String nome;
 
-    @Column(name = "CATEGORIA_PAI_ID")
-    private Integer categoriaPaiId;
+    @ManyToOne
+    @JoinColumn(name = "CATEGORIA_PAI_ID")
+    private Categoria categoriaPai;
 
+    @OneToMany(mappedBy = "categoriaPai")
+    private List<Categoria> categorias;
 }

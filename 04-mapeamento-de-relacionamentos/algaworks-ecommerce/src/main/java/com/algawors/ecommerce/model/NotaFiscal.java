@@ -24,6 +24,10 @@ public class NotaFiscal {
 
     @OneToOne
     @JoinColumn(name = "PEDIDO_ID")
+//    @JoinTable(name = "PEDIDO_NOTA_FISCAL",
+//            joinColumns = @JoinColumn(name = "NOTA_FISCAL_ID", unique = true),
+//            inverseJoinColumns = @JoinColumn(name = "PEDIDO_ID", unique = true)
+//    )
     private Pedido pedido;
 
     @Column(name = "XML")

@@ -32,9 +32,6 @@ public class Pedido {
     @Column(name = "DATA_CONCLUSAO")
     private LocalDateTime dataConclusao;
 
-    @Column(name = "NOTA_FISCAL_ID")
-    private Integer notaFiscalId;
-
     @Column(name = "TOTAL")
     private BigDecimal total;
 
@@ -50,4 +47,7 @@ public class Pedido {
 
     @OneToOne(mappedBy = "pedido")
     private PagamentoCartao pagamento;
+
+    @OneToOne(mappedBy = "pedido")
+    private NotaFiscal notaFiscal;
 }

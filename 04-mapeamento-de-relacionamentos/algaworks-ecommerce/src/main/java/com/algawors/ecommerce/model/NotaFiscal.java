@@ -22,8 +22,9 @@ public class NotaFiscal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "PEDIDO_ID")
-    private Integer pedidoId;
+    @OneToOne
+    @JoinColumn(name = "PEDIDO_ID")
+    private Pedido pedido;
 
     @Column(name = "XML")
     private String xml;

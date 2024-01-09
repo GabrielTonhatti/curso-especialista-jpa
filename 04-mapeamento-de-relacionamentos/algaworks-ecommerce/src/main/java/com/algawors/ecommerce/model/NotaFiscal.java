@@ -22,7 +22,7 @@ public class NotaFiscal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
+    @OneToOne(optional = false)
     @JoinColumn(name = "PEDIDO_ID")
 //    @JoinTable(name = "PEDIDO_NOTA_FISCAL",
 //            joinColumns = @JoinColumn(name = "NOTA_FISCAL_ID", unique = true),

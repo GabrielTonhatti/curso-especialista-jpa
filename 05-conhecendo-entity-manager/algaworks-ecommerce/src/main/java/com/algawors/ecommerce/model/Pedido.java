@@ -26,8 +26,11 @@ public class Pedido {
     @JoinColumn(name = "CLIENTE_ID")
     private Cliente cliente;
 
-    @Column(name = "DATA_PEDIDO")
-    private LocalDateTime dataPedido;
+    @Column(name = "DATA_CRIACAO")
+    private LocalDateTime dataCriacao;
+
+    @Column(name = "DATA_ULTIMA_ATUALIZACAO")
+    private LocalDateTime dataUltimaAtualizacao;
 
     @Column(name = "DATA_CONCLUSAO")
     private LocalDateTime dataConclusao;
@@ -50,4 +53,47 @@ public class Pedido {
 
     @OneToOne(mappedBy = "pedido")
     private NotaFiscal notaFiscal;
+
+//    @PreUpdate
+//    @PrePersist
+    public void calcularTotal() {
+        if (itens != null) {
+            total = itens
+                    .stream()
+                    .map(ItemPedido::getPrecoProduto)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
+    }
+
+    @PrePersist
+    public void aoPersistir() {
+        dataCriacao = LocalDateTime.now();
+        calcularTotal();
+    }
+
+    @PreUpdate
+    public void aoAtualizar() {
+        dataUltimaAtualizacao = LocalDateTime.now();
+        calcularTotal();
+    }
+
+    @PostPersist
+    public void aposPersistir() {
+        System.out.println("Após persistir o Pedido.");
+    }
+
+    @PostUpdate
+    public void aposAtualizar() {
+        System.out.println("Após atualizar o Pedido.");
+    }
+
+    @PostRemove
+    public void aposRemover() {
+        System.out.println("Após remover o Pedido.");
+    }
+
+    @PostLoad
+    public void aposCarregar() {
+        System.out.println("Após carregar o Pedido.");
+    }
 }

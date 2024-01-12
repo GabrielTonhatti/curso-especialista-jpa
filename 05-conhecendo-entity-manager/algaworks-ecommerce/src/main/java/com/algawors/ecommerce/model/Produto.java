@@ -1,5 +1,7 @@
 package com.algawors.ecommerce.model;
 
+import com.algawors.ecommerce.listener.GenericoListener;
+import com.algawors.ecommerce.listener.GerarNotaFiscalListener;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,6 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "PRODUTO")
+@EntityListeners({GenericoListener.class})
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Produto {
 

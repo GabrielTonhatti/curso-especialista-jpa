@@ -1,5 +1,7 @@
 package com.algawors.ecommerce.model;
 
+import com.algawors.ecommerce.listener.GenericoListener;
+import com.algawors.ecommerce.listener.GerarNotaFiscalListener;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,6 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "PEDIDO")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EntityListeners({GerarNotaFiscalListener.class, GenericoListener.class})
 public class Pedido {
 
     @Id
@@ -54,7 +57,11 @@ public class Pedido {
     @OneToOne(mappedBy = "pedido")
     private NotaFiscal notaFiscal;
 
-//    @PreUpdate
+    public boolean isPago() {
+        return status == StatusPedido.PAGO;
+    }
+
+    //    @PreUpdate
 //    @PrePersist
     public void calcularTotal() {
         if (itens != null) {

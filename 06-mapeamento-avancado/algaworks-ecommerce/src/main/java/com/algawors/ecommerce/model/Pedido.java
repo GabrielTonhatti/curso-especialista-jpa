@@ -29,10 +29,10 @@ public class Pedido {
     @JoinColumn(name = "CLIENTE_ID")
     private Cliente cliente;
 
-    @Column(name = "DATA_CRIACAO")
+    @Column(name = "DATA_CRIACAO", updatable = false)
     private LocalDateTime dataCriacao;
 
-    @Column(name = "DATA_ULTIMA_ATUALIZACAO")
+    @Column(name = "DATA_ULTIMA_ATUALIZACAO", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
 
     @Column(name = "DATA_CONCLUSAO")

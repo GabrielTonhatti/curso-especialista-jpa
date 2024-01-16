@@ -15,11 +15,11 @@ import java.util.Date;
 public class NotaFiscal {
 
     @Id
-    @Column(name = "ID")
     @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PEDIDO_ID")
     private Integer id;
 
+    @MapsId
     @OneToOne(optional = false)
     @JoinColumn(name = "PEDIDO_ID")
 //    @JoinTable(name = "PEDIDO_NOTA_FISCAL",

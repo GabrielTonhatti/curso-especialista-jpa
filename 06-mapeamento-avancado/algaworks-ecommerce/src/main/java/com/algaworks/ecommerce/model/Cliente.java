@@ -23,6 +23,9 @@ public class Cliente {
     @Column(name = "NOME")
     private String nome;
 
+    @Transient
+    private String primeiroNome;
+
     @Column(name = "SEXO")
     @Enumerated(EnumType.STRING)
     private SexoCliente sexo;
@@ -30,4 +33,13 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos;
 
+    @PostLoad
+    public void configurarPrimeiroNome() {
+        if (nome != null && !nome.isBlank()) {
+            int index = nome.indexOf(" ");
+            if (index > -1) {
+                primeiroNome = nome.substring(0, index);
+            }
+        }
+    }
 }

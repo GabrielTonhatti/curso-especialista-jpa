@@ -13,11 +13,11 @@ import lombok.Setter;
 public class PagamentoCartao {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "PEDIDO_ID")
     @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @MapsId
     @OneToOne(optional = false)
     @JoinColumn(name = "PEDIDO_ID")
     private Pedido pedido;

@@ -3,6 +3,7 @@ package com.algaworks.ecommerce.mapeamentoavancado;
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.NotaFiscal;
 import com.algaworks.ecommerce.model.Pedido;
+import com.algaworks.ecommerce.model.Produto;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileOutputStream;
@@ -46,9 +47,42 @@ class SalvandoArquivosTest extends EntityManagerTest {
 //        }
     }
 
+    @Test
+    void salvarFotoProduto() {
+        Produto produto = entityManager.find(Produto.class, 1);
+        produto.setFoto(carregarFotoProduto());
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(produto);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        assertNotNull(produtoVerificacao.getFoto());
+        assertTrue(produtoVerificacao.getFoto().length > 0);
+
+//        try {
+//            OutputStream out = new FileOutputStream(
+//                    Files.createFile(Paths.get(System.getProperty("user.home") + "/kindle.jpg")).toFile()
+//            );
+//            out.write(produtoVerificacao.getFoto());
+//        } catch (Exception ex) {
+//            throw new RuntimeException(ex);
+//        }
+    }
+
     private static byte[] carregarNotaFiscal() {
         try {
             return SalvandoArquivosTest.class.getResourceAsStream("/nota-fiscal.xml").readAllBytes();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private static byte[] carregarFotoProduto() {
+        try {
+            return SalvandoArquivosTest.class.getResourceAsStream("/kindle.jpg").readAllBytes();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

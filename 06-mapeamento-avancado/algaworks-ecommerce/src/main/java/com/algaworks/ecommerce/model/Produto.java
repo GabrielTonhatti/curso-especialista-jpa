@@ -57,4 +57,8 @@ public class Produto {
     @ElementCollection
     @CollectionTable(name = "PRODUTO_ATRIBUTO", joinColumns = @JoinColumn(name = "PRODUTO_ID"))
     private List<Atributo> atributos;
+
+    @Lob
+    @Column(name = "FOTO", length = 1000)
+    private byte[] foto;
 }

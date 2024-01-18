@@ -61,7 +61,7 @@ public class Pedido {
         return status == StatusPedido.PAGO;
     }
 
-    //    @PreUpdate
+//    @PreUpdate
 //    @PrePersist
     public void calcularTotal() {
         if (itens != null) {

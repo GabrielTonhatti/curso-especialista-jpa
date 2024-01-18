@@ -1,7 +1,6 @@
 package com.algaworks.ecommerce.model;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,14 +10,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "CATEGORIA")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Categoria {
-
-    @Id
-    @Column(name = "ID")
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Categoria extends EntidadeBaseInteger {
 
     @Column(name = "NOME")
     private String nome;

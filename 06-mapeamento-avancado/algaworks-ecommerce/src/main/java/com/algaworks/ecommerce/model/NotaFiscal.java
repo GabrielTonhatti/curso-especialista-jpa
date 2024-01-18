@@ -1,7 +1,6 @@
 package com.algaworks.ecommerce.model;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,13 +10,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "NOTA_FISCAL")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class NotaFiscal {
-
-    @Id
-    @EqualsAndHashCode.Include
-    @Column(name = "PEDIDO_ID")
-    private Integer id;
+public class NotaFiscal extends EntidadeBaseInteger {
 
     @MapsId
     @OneToOne(optional = false)

@@ -1,7 +1,6 @@
 package com.algaworks.ecommerce.model;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,13 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "PAGAMENTO_CARTAO")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class PagamentoCartao {
-
-    @Id
-    @Column(name = "PEDIDO_ID")
-    @EqualsAndHashCode.Include
-    private Integer id;
+public class PagamentoCartao extends EntidadeBaseInteger {
 
     @MapsId
     @OneToOne(optional = false)

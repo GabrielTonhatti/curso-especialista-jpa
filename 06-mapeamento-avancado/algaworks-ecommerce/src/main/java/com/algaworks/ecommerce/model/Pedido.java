@@ -3,7 +3,6 @@ package com.algaworks.ecommerce.model;
 import com.algaworks.ecommerce.listener.GenericoListener;
 import com.algaworks.ecommerce.listener.GerarNotaFiscalListener;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,15 +14,8 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "PEDIDO")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @EntityListeners({GerarNotaFiscalListener.class, GenericoListener.class})
-public class Pedido {
-
-    @Id
-    @Column(name = "ID")
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Pedido extends EntidadeBaseInteger {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "CLIENTE_ID")
@@ -61,7 +53,7 @@ public class Pedido {
         return status == StatusPedido.PAGO;
     }
 
-//    @PreUpdate
+    //    @PreUpdate
 //    @PrePersist
     public void calcularTotal() {
         if (itens != null) {

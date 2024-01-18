@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -22,6 +23,12 @@ public class Cliente {
 
     @Column(name = "NOME")
     private String nome;
+
+    @ElementCollection
+    @Column(name = "DESCRICAO")
+    @MapKeyColumn(name = "TIPO")
+    @CollectionTable(name = "CLIENTE_CONTATO", joinColumns = @JoinColumn(name = "CLIENTE_ID"))
+    private Map<String, String> contatos;
 
     @Transient
     private String primeiroNome;

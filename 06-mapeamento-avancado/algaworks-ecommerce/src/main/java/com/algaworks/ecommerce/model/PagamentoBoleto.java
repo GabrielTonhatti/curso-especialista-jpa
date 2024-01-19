@@ -1,6 +1,8 @@
 package com.algaworks.ecommerce.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,14 +10,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "PAGAMENTO_BOLETO")
-public class PagamentoBoleto extends EntidadeBaseInteger {
-
-    @Column(name = "PEDIDO_ID")
-    private Integer pedidoId;
-
-    @Column(name = "STATUS")
-    @Enumerated(EnumType.STRING)
-    private StatusPagamento status;
+public class PagamentoBoleto extends Pagamento {
 
     @Column(name = "CODIGO_BARRAS")
     private String codigoBarras;

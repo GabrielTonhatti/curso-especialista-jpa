@@ -1,6 +1,8 @@
 package com.algaworks.ecommerce.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,17 +10,8 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "PAGAMENTO_CARTAO")
-public class PagamentoCartao extends EntidadeBaseInteger {
+public class PagamentoCartao extends Pagamento {
 
-    @MapsId
-    @OneToOne(optional = false)
-    @JoinColumn(name = "PEDIDO_ID")
-    private Pedido pedido;
-
-    @Column(name = "STATUS")
-    @Enumerated(EnumType.STRING)
-    private StatusPagamento status;
-
-    @Column(name = "NUMERO")
-    private String numero;
+    @Column(name = "NUMERO_CARTAO")
+    private String numeroCartao;
 }

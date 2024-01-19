@@ -1,15 +1,14 @@
 package com.algaworks.ecommerce.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "PAGAMENTO_CARTAO")
+@DiscriminatorValue("CARTAO")
+//@Table(name = "PAGAMENTO_CARTAO")
 public class PagamentoCartao extends Pagamento {
 
     @Column(name = "NUMERO_CARTAO")

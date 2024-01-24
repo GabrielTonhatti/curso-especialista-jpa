@@ -10,8 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@DiscriminatorValue("BOLETO")
-//@Table(name = "PAGAMENTO_BOLETO")
+//@DiscriminatorValue("BOLETO")
+@Table(name = "PAGAMENTO_BOLETO")
 public class PagamentoBoleto extends Pagamento {
 
     @Column(name = "CODIGO_BARRAS")

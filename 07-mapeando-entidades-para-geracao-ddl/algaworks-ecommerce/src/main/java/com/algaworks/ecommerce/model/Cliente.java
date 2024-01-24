@@ -11,12 +11,17 @@ import java.util.Map;
 @Getter
 @Setter
 @Entity
-@Table(name = "CLIENTE")
 @SecondaryTable(name = "CLIENTE_DETALHE", pkJoinColumns = @PrimaryKeyJoinColumn(name = "CLIENTE_ID"))
+@Table(name = "CLIENTE",
+        indexes = {@Index(name = "IDX_NOME", columnList = "NOME")},
+        uniqueConstraints = {@UniqueConstraint(name = "UNQ_CPF", columnNames = {"CPF"})})
 public class Cliente extends EntidadeBaseInteger {
 
     @Column(name = "NOME")
     private String nome;
+
+    @Column(name = "CPF")
+    private String cpf;
 
     @ElementCollection
     @Column(name = "DESCRICAO")

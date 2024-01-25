@@ -10,25 +10,25 @@ import lombok.Setter;
 @Embeddable
 public class EnderecoEntregaPedido {
 
-    @Column(name = "CEP")
+    @Column(name = "CEP", length = 9)
     private String cep;
 
-    @Column(name = "LOGRADOURO")
+    @Column(name = "LOGRADOURO", length = 100)
     private String logradouro;
 
-    @Column(name = "NUMERO")
+    @Column(name = "NUMERO", length = 10)
     private String numero;
 
-    @Column(name = "COMPLEMENTO")
+    @Column(name = "COMPLEMENTO", length = 50)
     private String complemento;
 
-    @Column(name = "BAIRRO")
+    @Column(name = "BAIRRO", length = 50)
     private String bairro;
 
-    @Column(name = "CIDADE")
+    @Column(name = "CIDADE", length = 50)
     private String cidade;
 
-    @Column(name = "ESTADO")
+    @Column(name = "ESTADO", length = 2)
     private String estado;
 
 }

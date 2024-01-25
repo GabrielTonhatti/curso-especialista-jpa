@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Atributo {
 
-    @Column(name = "NOME")
+    @Column(name = "NOME", length = 100, nullable = false)
     private String nome;
 
     @Column(name = "VALOR")

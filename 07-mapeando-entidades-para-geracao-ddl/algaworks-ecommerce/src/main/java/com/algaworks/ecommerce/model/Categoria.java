@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "CATEGORIA", uniqueConstraints = {@UniqueConstraint(name = "UNQ_NOME", columnNames = {"NOME"})})
 public class Categoria extends EntidadeBaseInteger {
 
-    @Column(name = "NOME")
+    @Column(name = "NOME", length = 100, nullable = false)
     private String nome;
 
     @ManyToOne

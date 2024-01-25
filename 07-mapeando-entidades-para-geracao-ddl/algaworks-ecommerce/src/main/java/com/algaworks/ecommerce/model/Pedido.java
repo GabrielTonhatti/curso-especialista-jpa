@@ -21,7 +21,7 @@ public class Pedido extends EntidadeBaseInteger {
     @JoinColumn(name = "CLIENTE_ID")
     private Cliente cliente;
 
-    @Column(name = "DATA_CRIACAO", updatable = false)
+    @Column(name = "DATA_CRIACAO", updatable = false, nullable = false)
     private LocalDateTime dataCriacao;
 
     @Column(name = "DATA_ULTIMA_ATUALIZACAO", insertable = false)
@@ -30,7 +30,7 @@ public class Pedido extends EntidadeBaseInteger {
     @Column(name = "DATA_CONCLUSAO")
     private LocalDateTime dataConclusao;
 
-    @Column(name = "TOTAL", precision = 19, scale = 2, nullable = false)
+    @Column(name = "TOTAL", nullable = false)
     private BigDecimal total;
 
     @Enumerated(EnumType.STRING)

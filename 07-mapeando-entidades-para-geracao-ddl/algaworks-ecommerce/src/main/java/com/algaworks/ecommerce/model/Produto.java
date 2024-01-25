@@ -24,10 +24,10 @@ public class Produto extends EntidadeBaseInteger {
     @Column(name = "DESCRICAO", columnDefinition = "VARCHAR(275) NOT NULL DEFAULT 'DESCRICAO'")
     private String descricao;
 
-    @Column(name = "PRECO", precision = 10, scale = 2) // preco decimal(10,2)
+    @Column(name = "PRECO")
     private BigDecimal preco;
 
-    @Column(name = "DATA_CRIACAO", updatable = false)
+    @Column(name = "DATA_CRIACAO", updatable = false, nullable = false)
     private LocalDateTime dataCriacao;
 
     @Column(name = "DATA_ULTIMA_ATUALIZACAO", insertable = false)
@@ -43,7 +43,7 @@ public class Produto extends EntidadeBaseInteger {
     private Estoque estoque;
 
     @ElementCollection
-    @Column(name = "TAG")
+    @Column(name = "TAG", length = 50, nullable = false)
     @CollectionTable(name = "PRODUTO_TAG", joinColumns = @JoinColumn(name = "PRODUTO_ID"))
     private List<String> tags;
 

@@ -17,10 +17,10 @@ import java.util.Map;
         uniqueConstraints = {@UniqueConstraint(name = "UNQ_CPF", columnNames = {"CPF"})})
 public class Cliente extends EntidadeBaseInteger {
 
-    @Column(name = "NOME")
+    @Column(name = "NOME", length = 100, nullable = false)
     private String nome;
 
-    @Column(name = "CPF")
+    @Column(name = "CPF", length = 14, nullable = false)
     private String cpf;
 
     @ElementCollection
@@ -33,7 +33,7 @@ public class Cliente extends EntidadeBaseInteger {
     private String primeiroNome;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "SEXO", table = "CLIENTE_DETALHE")
+    @Column(name = "SEXO", table = "CLIENTE_DETALHE", length = 30, nullable = false)
     private SexoCliente sexo;
 
     @Column(name = "DATA_NASCIMENTO", table = "CLIENTE_DETALHE")

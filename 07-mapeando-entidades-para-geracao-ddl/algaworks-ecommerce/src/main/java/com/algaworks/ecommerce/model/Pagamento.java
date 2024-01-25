@@ -17,8 +17,8 @@ public abstract class Pagamento extends EntidadeBaseInteger {
     @JoinColumn(name = "PEDIDO_ID")
     private Pedido pedido;
 
-    @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS", length = 30, nullable = false)
     private StatusPagamento status;
 
 }

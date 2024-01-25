@@ -18,13 +18,13 @@ import java.util.List;
         uniqueConstraints = {@UniqueConstraint(name = "UNQ_NOME", columnNames = {"NOME"})})
 public class Produto extends EntidadeBaseInteger {
 
-    @Column(name = "NOME")
+    @Column(name = "NOME", length = 100, nullable = false) // nome varchar(100) not null
     private String nome;
 
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", columnDefinition = "VARCHAR(275) NOT NULL DEFAULT 'DESCRICAO'")
     private String descricao;
 
-    @Column(name = "PRECO")
+    @Column(name = "PRECO", precision = 10, scale = 2) // preco decimal(10,2)
     private BigDecimal preco;
 
     @Column(name = "DATA_CRIACAO", updatable = false)
@@ -36,8 +36,7 @@ public class Produto extends EntidadeBaseInteger {
     @ManyToMany
     @JoinTable(name = "PRODUTO_CATEGORIA",
             joinColumns = @JoinColumn(name = "PRODUTO_ID"),
-            inverseJoinColumns = @JoinColumn(name = "CATEGORIA_ID")
-    )
+            inverseJoinColumns = @JoinColumn(name = "CATEGORIA_ID"))
     private List<Categoria> categorias;
 
     @OneToOne(mappedBy = "produto")

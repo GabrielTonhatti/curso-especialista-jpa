@@ -30,11 +30,11 @@ public class Pedido extends EntidadeBaseInteger {
     @Column(name = "DATA_CONCLUSAO")
     private LocalDateTime dataConclusao;
 
-    @Column(name = "TOTAL")
+    @Column(name = "TOTAL", precision = 19, scale = 2, nullable = false)
     private BigDecimal total;
 
-    @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS", length = 30, nullable = false)
     private StatusPedido status;
 
     @Embedded

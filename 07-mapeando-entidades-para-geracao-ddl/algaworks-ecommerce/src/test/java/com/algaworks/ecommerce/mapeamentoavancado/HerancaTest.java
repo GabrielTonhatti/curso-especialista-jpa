@@ -14,7 +14,9 @@ class HerancaTest extends EntityManagerTest {
     @Test
     void salvarClient() {
         Cliente cliente = new Cliente();
+        cliente.setCpf("33");
         cliente.setNome("Fernanda Morais");
+        cliente.setSexo(SexoCliente.FEMININO);
 
         entityManager.getTransaction().begin();
         entityManager.persist(cliente);

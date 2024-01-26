@@ -5,6 +5,7 @@ import com.algaworks.ecommerce.model.Produto;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,6 +32,7 @@ class OperacoesComTransacaoTest extends EntityManagerTest {
 //        produtoPersist.setId(5); Comentado porque estamos utilizando IDENTITY
         produtoPersist.setNome("Smartphone One Plus");
         produtoPersist.setPreco(new BigDecimal(2000));
+        produtoPersist.setDataCriacao(LocalDateTime.now());
         produtoPersist.setDescricao("O processador mais rápido.");
 
         entityManager.getTransaction().begin();
@@ -48,6 +50,7 @@ class OperacoesComTransacaoTest extends EntityManagerTest {
         produtoMerge.setId(6);
         produtoMerge.setNome("Notebook Dell");
         produtoMerge.setPreco(new BigDecimal(2000));
+        produtoMerge.setDataCriacao(LocalDateTime.now());
         produtoMerge.setDescricao("O melhor da categoria.");
 
         entityManager.getTransaction().begin();
@@ -66,6 +69,7 @@ class OperacoesComTransacaoTest extends EntityManagerTest {
         Produto produto = new Produto();
         produto.setId(4);
         produto.setNome("Microfone Rode Videmic");
+        produto.setDataCriacao(LocalDateTime.now());
         produto.setPreco(new BigDecimal(1000));
         produto.setDescricao("A melhor qualidade de som");
 
@@ -132,6 +136,7 @@ class OperacoesComTransacaoTest extends EntityManagerTest {
 //        produto.setId(2); Comentado porque estamos utilizando IDENTITY
         produto.setNome("Câmera Canon");
         produto.setPreco(new BigDecimal(5000));
+        produto.setDataCriacao(LocalDateTime.now());
         produto.setDescricao("A melhor definição para suas fotos");
 
         entityManager.getTransaction().begin();

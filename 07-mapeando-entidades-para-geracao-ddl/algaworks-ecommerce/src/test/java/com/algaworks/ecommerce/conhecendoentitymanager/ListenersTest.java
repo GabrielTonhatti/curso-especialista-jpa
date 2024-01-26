@@ -7,6 +7,9 @@ import com.algaworks.ecommerce.model.Produto;
 import com.algaworks.ecommerce.model.StatusPedido;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ListenersTest extends EntityManagerTest {
@@ -25,7 +28,9 @@ class ListenersTest extends EntityManagerTest {
 
         Pedido pedido = new Pedido();
         pedido.setCliente(cliente);
+        pedido.setTotal(BigDecimal.TEN);
         pedido.setStatus(StatusPedido.AGUARDANDO);
+        pedido.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         entityManager.persist(pedido);

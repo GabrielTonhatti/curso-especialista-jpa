@@ -14,7 +14,7 @@ import lombok.Setter;
 //@Table(name = "PAGAMENTO_BOLETO")
 public class PagamentoBoleto extends Pagamento {
 
-    @Column(name = "CODIGO_BARRAS", length = 100, nullable = false)
+    @Column(name = "CODIGO_BARRAS", length = 100)
     private String codigoBarras;
 
 }

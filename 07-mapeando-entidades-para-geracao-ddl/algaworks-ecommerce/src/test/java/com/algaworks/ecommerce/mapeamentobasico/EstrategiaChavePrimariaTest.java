@@ -12,7 +12,7 @@ class EstrategiaChavePrimariaTest extends EntityManagerTest {
     @Test
     void testarEstrategiaChave() {
         Categoria categoria = new Categoria();
-        categoria.setNome("Eletrônicos");
+        categoria.setNome("Natação");
 
         entityManager.getTransaction().begin();
         entityManager.persist(categoria);
@@ -22,7 +22,7 @@ class EstrategiaChavePrimariaTest extends EntityManagerTest {
 
         Categoria categoriaVerificacao = entityManager.find(Categoria.class, categoria.getId());
          assertNotNull(categoriaVerificacao);
-         assertEquals("Eletrônicos", categoriaVerificacao.getNome());
+         assertEquals("Natação", categoriaVerificacao.getNome());
     }
 
 }

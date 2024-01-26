@@ -2,6 +2,7 @@ package com.algaworks.ecommerce.iniciandocomjpa;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Cliente;
+import com.algaworks.ecommerce.model.SexoCliente;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,6 +14,8 @@ class PrimeiroCrudTest extends EntityManagerTest {
         Cliente cliente = new Cliente();
 //        cliente.setId(3); Comentado porque estamos utilizando IDENTITY
         cliente.setNome("Carlos Finotti");
+        cliente.setCpf("222");
+        cliente.setSexo(SexoCliente.MASCULINO);
 
         entityManager.getTransaction().begin();
         entityManager.persist(cliente);
@@ -49,6 +52,8 @@ class PrimeiroCrudTest extends EntityManagerTest {
 
         entityManager.getTransaction().begin();
         cliente.setNome("João Pedro");
+        cliente.setCpf("333");
+        cliente.setSexo(SexoCliente.MASCULINO);
         entityManager.getTransaction().commit();
 
         entityManager.clear();

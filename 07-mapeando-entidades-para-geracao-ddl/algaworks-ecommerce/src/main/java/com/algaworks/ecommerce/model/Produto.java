@@ -37,10 +37,10 @@ public class Produto extends EntidadeBaseInteger {
 
     @ManyToMany
     @JoinTable(name = "PRODUTO_CATEGORIA",
-            joinColumns = @JoinColumn(name = "PRODUTO_ID"),
-            foreignKey = @ForeignKey(name = "FK_PRODUTO_CATEGORIA_PRODUTO"),
-            inverseJoinColumns = @JoinColumn(name = "CATEGORIA_ID"),
-            inverseForeignKey = @ForeignKey(name = "FK_PRODUTO_CATEGORIA_CATEGORIA")
+            joinColumns = @JoinColumn(name = "PRODUTO_ID", nullable = false,
+                    foreignKey = @ForeignKey(name = "FK_PRODUTO_CATEGORIA_PRODUTO")),
+            inverseJoinColumns = @JoinColumn(name = "CATEGORIA_ID", nullable = false,
+                    foreignKey = @ForeignKey(name = "FK_PRODUTO_CATEGORIA_CATEGORIA"))
     )
     private List<Categoria> categorias;
 

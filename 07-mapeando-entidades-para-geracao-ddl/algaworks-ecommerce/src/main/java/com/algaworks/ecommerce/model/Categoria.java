@@ -16,7 +16,7 @@ public class Categoria extends EntidadeBaseInteger {
     private String nome;
 
     @ManyToOne
-    @JoinColumn(name = "CATEGORIA_PAI_ID")
+    @JoinColumn(name = "CATEGORIA_PAI_ID", foreignKey = @ForeignKey(name = "FK_CATEGORIA_CATEGORIA"))
     private Categoria categoriaPai;
 
     @OneToMany(mappedBy = "categoriaPai")

@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Estoque extends EntidadeBaseInteger {
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "PRODUTO_ID")
+    @JoinColumn(name = "PRODUTO_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_ESTOQUE_PRODUTO"))
     private Produto produto;
 
     @Column(name = "QUANTIDADE")

@@ -38,7 +38,10 @@ public class Produto extends EntidadeBaseInteger {
     @ManyToMany
     @JoinTable(name = "PRODUTO_CATEGORIA",
             joinColumns = @JoinColumn(name = "PRODUTO_ID"),
-            inverseJoinColumns = @JoinColumn(name = "CATEGORIA_ID"))
+            foreignKey = @ForeignKey(name = "FK_PRODUTO_CATEGORIA_PRODUTO"),
+            inverseJoinColumns = @JoinColumn(name = "CATEGORIA_ID"),
+            inverseForeignKey = @ForeignKey(name = "FK_PRODUTO_CATEGORIA_CATEGORIA")
+    )
     private List<Categoria> categorias;
 
     @OneToOne(mappedBy = "produto")
@@ -46,11 +49,13 @@ public class Produto extends EntidadeBaseInteger {
 
     @ElementCollection
     @Column(name = "TAG", length = 50, nullable = false)
-    @CollectionTable(name = "PRODUTO_TAG", joinColumns = @JoinColumn(name = "PRODUTO_ID"))
+    @CollectionTable(name = "PRODUTO_TAG", joinColumns = @JoinColumn(name = "PRODUTO_ID"),
+            foreignKey = @ForeignKey(name = "FK_PRODUTO_TAG_PRODUTO"))
     private List<String> tags;
 
     @ElementCollection
-    @CollectionTable(name = "PRODUTO_ATRIBUTO", joinColumns = @JoinColumn(name = "PRODUTO_ID"))
+    @CollectionTable(name = "PRODUTO_ATRIBUTO", joinColumns = @JoinColumn(name = "PRODUTO_ID"),
+            foreignKey = @ForeignKey(name = "FK_PRODUTO_ATRIBUTO_PRODUTO"))
     private List<Atributo> atributos;
 
     @Lob

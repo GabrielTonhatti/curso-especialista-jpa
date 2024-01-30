@@ -14,7 +14,7 @@ public abstract class Pagamento extends EntidadeBaseInteger {
 
     @MapsId
     @OneToOne(optional = false)
-    @JoinColumn(name = "PEDIDO_ID")
+    @JoinColumn(name = "PEDIDO_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_PAGAMENTO_PEDIDO"))
     private Pedido pedido;
 
     @Enumerated(EnumType.STRING)

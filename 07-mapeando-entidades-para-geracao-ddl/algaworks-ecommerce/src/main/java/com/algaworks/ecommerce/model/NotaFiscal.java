@@ -14,7 +14,7 @@ public class NotaFiscal extends EntidadeBaseInteger {
 
     @MapsId
     @OneToOne(optional = false)
-    @JoinColumn(name = "PEDIDO_ID")
+    @JoinColumn(name = "PEDIDO_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_NOTA_FISCAL_PEDIDO"))
 //    @JoinTable(name = "PEDIDO_NOTA_FISCAL",
 //            joinColumns = @JoinColumn(name = "NOTA_FISCAL_ID", unique = true),
 //            inverseJoinColumns = @JoinColumn(name = "PEDIDO_ID", unique = true)

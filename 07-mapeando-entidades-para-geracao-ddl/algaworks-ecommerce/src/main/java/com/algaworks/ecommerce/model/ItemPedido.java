@@ -19,12 +19,12 @@ public class ItemPedido {
 
     @MapsId("pedidoId")
     @ManyToOne(optional = false)
-    @JoinColumn(name = "PEDIDO_ID")
+    @JoinColumn(name = "PEDIDO_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_ITEM_PEDIDO_PEDIDO"))
     private Pedido pedido;
 
     @MapsId("produtoId")
     @ManyToOne(optional = false)
-    @JoinColumn(name = "PRODUTO_ID")
+    @JoinColumn(name = "PRODUTO_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_ITEM_PEDIDO_PRODUTO"))
     private Produto produto;
 
     @Column(name = "PRECO_PRODUTO", precision = 19, scale = 2, nullable = false)

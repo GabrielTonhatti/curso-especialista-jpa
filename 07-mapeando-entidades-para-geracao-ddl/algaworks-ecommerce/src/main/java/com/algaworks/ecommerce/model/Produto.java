@@ -4,6 +4,7 @@ import com.algaworks.ecommerce.listener.GenericoListener;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.Length;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ public class Produto extends EntidadeBaseInteger {
     private String nome;
 
     @Lob
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", length = Length.LONG32)
     private String descricao;
 
     @Column(name = "PRECO")

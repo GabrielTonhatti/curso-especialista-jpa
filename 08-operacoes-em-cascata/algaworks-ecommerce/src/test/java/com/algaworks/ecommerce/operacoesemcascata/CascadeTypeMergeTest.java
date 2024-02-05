@@ -5,15 +5,43 @@ import com.algaworks.ecommerce.model.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CascadeTypeMergeTest extends EntityManagerTest {
 
     @Test
-//    @Disabled
+    @Disabled
+    void atualizarProdutoComCategoria() {
+        Produto produto = new Produto();
+        produto.setId(1);
+        produto.setDataUltimaAtualizacao(LocalDateTime.now());
+        produto.setPreco(new BigDecimal(500));
+        produto.setNome("Kindle");
+        produto.setDescricao("Agora com iluminação embutida ajustável");
+
+        Categoria categoria = new Categoria();
+        categoria.setId(2);
+        categoria.setNome("Tablets");
+
+        produto.setCategorias(List.of(categoria)); // CascadeType.MERGE
+
+        entityManager.getTransaction().begin();
+        entityManager.merge(produto);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        assertNotNull(produtoVerificacao);
+        assertFalse(produtoVerificacao.getCategorias().isEmpty());
+    }
+
+    @Test
+    @Disabled
     void AtualizarPedidoComItens() {
         Cliente cliente = entityManager.find(Cliente.class, 1);
         Produto produto = entityManager.find(Produto.class, 1);
@@ -47,7 +75,7 @@ class CascadeTypeMergeTest extends EntityManagerTest {
 
     @Test
     @Disabled
-    public void atualizarItemPedidoComPedido() {
+    void atualizarItemPedidoComPedido() {
         Cliente cliente = entityManager.find(Cliente.class, 1);
         Produto produto = entityManager.find(Produto.class, 1);
 

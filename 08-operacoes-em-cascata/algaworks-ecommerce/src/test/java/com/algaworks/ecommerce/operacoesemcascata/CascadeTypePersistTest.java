@@ -17,6 +17,31 @@ class CascadeTypePersistTest extends EntityManagerTest {
 
     @Test
     @Disabled
+    void persistirProdutoComCategoria() {
+        Produto produto = new Produto();
+        produto.setDataCriacao(LocalDateTime.now());
+        produto.setPreco(BigDecimal.TEN);
+        produto.setNome("Fones de ouvido");
+        produto.setDescricao("A melhor qualidade de som");
+
+        Categoria categoria = new Categoria();
+        categoria.setNome("Áudio");
+
+        produto.setCategorias(List.of(categoria)); // CascadeType.PERSIST
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(produto);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        assertNotNull(produtoVerificacao);
+        assertFalse(produtoVerificacao.getCategorias().isEmpty());
+    }
+
+    @Test
+    @Disabled
     void persistirPedidoComItens() {
         Cliente cliente = entityManager.find(Cliente.class, 1);
         Produto produto = entityManager.find(Produto.class, 1);
@@ -45,7 +70,6 @@ class CascadeTypePersistTest extends EntityManagerTest {
         Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
         assertNotNull(pedidoVerificacao);
         assertFalse(pedidoVerificacao.getItens().isEmpty());
-
     }
 
     @Test

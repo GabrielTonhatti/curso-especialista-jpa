@@ -35,7 +35,7 @@ public class Produto extends EntidadeBaseInteger {
     @Column(name = "DATA_ULTIMA_ATUALIZACAO", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     @JoinTable(name = "PRODUTO_CATEGORIA",
             joinColumns = @JoinColumn(name = "PRODUTO_ID", nullable = false,
                     foreignKey = @ForeignKey(name = "FK_PRODUTO_CATEGORIA_PRODUTO")),

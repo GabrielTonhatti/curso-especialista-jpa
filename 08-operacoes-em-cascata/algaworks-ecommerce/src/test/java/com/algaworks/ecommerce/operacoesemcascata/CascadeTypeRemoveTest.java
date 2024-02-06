@@ -4,12 +4,29 @@ import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.ItemPedido;
 import com.algaworks.ecommerce.model.ItemPedidoId;
 import com.algaworks.ecommerce.model.Pedido;
+import com.algaworks.ecommerce.model.Produto;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CascadeTypeRemoveTest extends EntityManagerTest {
+
+    @Test
+    void removerRelacaoProdutoCategoria() {
+        Produto produto = entityManager.find(Produto.class, 1);
+
+        assertFalse(produto.getCategorias().isEmpty());
+
+        entityManager.getTransaction().begin();
+        produto.getCategorias().clear();
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        assertTrue(produtoVerificacao.getCategorias().isEmpty());
+    }
 
     @Test
     @Disabled

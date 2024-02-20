@@ -1,6 +1,7 @@
 package com.algaworks.ecommerce.jpql;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.dto.ProdutoDTO;
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.Produto;
@@ -10,10 +11,20 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BasicoJPQLTest extends EntityManagerTest {
+
+    @Test
+    void projetarNoDTO() {
+        String jpql = "SELECT new com.algaworks.ecommerce.dto.ProdutoDTO(id, nome) FROM Produto";
+
+        TypedQuery<ProdutoDTO> typedQuery = entityManager.createQuery(jpql, ProdutoDTO.class);
+        List<ProdutoDTO> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+
+        lista.forEach(p -> System.out.println("ID: " + p.getId() + ", Nome: " + p.getNome()));
+    }
 
     @Test
     void projetarOResultado() {

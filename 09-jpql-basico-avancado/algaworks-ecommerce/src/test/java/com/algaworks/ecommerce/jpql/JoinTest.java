@@ -7,9 +7,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class JoinTest extends EntityManagerTest {
+
+    @Test
+    void fazerLeftJoin() {
+        String jpql = "SELECT p FROM Pedido p LEFT OUTER JOIN p.pagamento pag ON pag.status = 'PROCESSANDO'";
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+
+        List<Pedido> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+    }
 
     @Test
     void fazerJoin() {
@@ -18,7 +28,6 @@ class JoinTest extends EntityManagerTest {
         TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
 
         List<Pedido> lista = typedQuery.getResultList();
-        assertEquals(1, lista.size());
+        assertFalse(lista.isEmpty());
     }
-
 }

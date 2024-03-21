@@ -1,10 +1,12 @@
 package com.algaworks.ecommerce.jpql;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.model.Pedido;
 import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -51,6 +53,18 @@ class ExpressoesCondicionaisTest extends EntityManagerTest {
         typedQuery.setParameter("nome", "a");
 
         List<Object[]> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+    }
+
+    @Test
+    void buscarPedidosDe2DiasAtras() {
+        String jpql = "SELECT p FROM Pedido p WHERE p.dataCriacao >= :dataInicial AND p.dataCriacao <= :dataFinal";
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+        typedQuery.setParameter("dataInicial", LocalDateTime.now().minusDays(2));
+        typedQuery.setParameter("dataFinal", LocalDateTime.now());
+
+        List<Pedido> lista = typedQuery.getResultList();
         assertFalse(lista.isEmpty());
     }
 }

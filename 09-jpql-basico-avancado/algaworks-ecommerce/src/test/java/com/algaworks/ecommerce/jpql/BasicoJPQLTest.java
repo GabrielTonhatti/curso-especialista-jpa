@@ -16,6 +16,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class BasicoJPQLTest extends EntityManagerTest {
 
     @Test
+    void ordernarResultados() {
+        String jpql = "SELECT c FROM Cliente c ORDER BY c.nome ASC"; // ou DESC
+
+        TypedQuery<Cliente> typedQuery = entityManager.createQuery(jpql, Cliente.class);
+
+        List<Cliente> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+        lista.forEach(c -> System.out.println("ID: " + c.getId() + ", Nome: " + c.getNome()));
+   }
+
+    @Test
     void projetarNoDTO() {
         String jpql = "SELECT new com.algaworks.ecommerce.dto.ProdutoDTO(id, nome) FROM Produto";
 

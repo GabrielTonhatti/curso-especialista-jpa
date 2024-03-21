@@ -14,6 +14,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class ExpressoesCondicionaisTest extends EntityManagerTest {
 
     @Test
+    void usarBetween() {
+        String jpql = "SELECT p FROM Pedido p WHERE p.dataCriacao BETWEEN :dataInicial AND :dataFinal";
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+        typedQuery.setParameter("dataInicial", LocalDateTime.now().minusDays(2));
+        typedQuery.setParameter("dataFinal", LocalDateTime.now());
+
+        List<Pedido> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+    }
+
+    @Test
     void usarMaiorMenor() {
         String jpql = "SELECT p FROM Produto p WHERE p.preco >= :precoInicial AND p.preco <= :precoFinal";
 
@@ -58,11 +70,10 @@ class ExpressoesCondicionaisTest extends EntityManagerTest {
 
     @Test
     void buscarPedidosDe2DiasAtras() {
-        String jpql = "SELECT p FROM Pedido p WHERE p.dataCriacao >= :dataInicial AND p.dataCriacao <= :dataFinal";
+        String jpql = "SELECT p FROM Pedido p WHERE p.dataCriacao >= :data";
 
         TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
-        typedQuery.setParameter("dataInicial", LocalDateTime.now().minusDays(2));
-        typedQuery.setParameter("dataFinal", LocalDateTime.now());
+        typedQuery.setParameter("data", LocalDateTime.now().minusDays(2));
 
         List<Pedido> lista = typedQuery.getResultList();
         assertFalse(lista.isEmpty());

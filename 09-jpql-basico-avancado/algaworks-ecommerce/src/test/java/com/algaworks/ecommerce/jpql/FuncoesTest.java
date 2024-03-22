@@ -11,6 +11,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class FuncoesTest extends EntityManagerTest {
 
     @Test
+    void aplicarFuncaoColecao() {
+        String jpql = "SELECT SIZE(p.itens) FROM Pedido p WHERE SIZE(p.itens) > 1";
+
+        TypedQuery<Integer> typedQuery = entityManager.createQuery(jpql, Integer.class);
+
+        List<Integer> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+
+        lista.forEach(size -> System.out.println("QTD: " + size));
+    }
+
+    @Test
     void aplicarFuncaoNumero() {
         // ABS - VALOR ABSOLUTO, MOD - RESTO DA DIVISÃO, SQRT - RAIZ QUADRADA
         String jpql = "SELECT ABS(p.total), MOD(p.id, 2), SQRT(p.total) FROM Pedido p WHERE ABS(p.total) > 1000";

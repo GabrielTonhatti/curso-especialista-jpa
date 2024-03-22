@@ -5,13 +5,31 @@ import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class FuncoesStringsTest extends EntityManagerTest {
+class FuncoesTest extends EntityManagerTest {
 
     @Test
-    void aplicarFuncao() {
+    void aplicarFuncaoData() {
+        // TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        // CURRENT_DATE, CURRENT_TIME, CURRENT_TIMESTAMP
+
+//        String jpql = "SELECT YEAR(p.dataCriacao), MONTH(p.dataCriacao), DAY(p.dataCriacao) FROM Pedido p";
+        String jpql = "SELECT HOUR(p.dataCriacao), MINUTE(p.dataCriacao), SECOND(p.dataCriacao) FROM Pedido p "
+                + "WHERE HOUR(p.dataCriacao) > 18";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+
+        lista.forEach(array -> System.out.println(array[0] + " | " + array[1] + " | " + array[2]));
+    }
+
+    @Test
+    void aplicarFuncaoString() {
         // CONCAT, LENGTH, LOCATE, SUBSTRING, LOWER, UPPER, TRIM
 
 //        String jpql = "SELECT c.nome, CONCAT('Categoria: ', c.nome) FROM Categoria c";

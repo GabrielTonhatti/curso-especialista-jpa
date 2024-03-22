@@ -5,11 +5,23 @@ import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class FuncoesTest extends EntityManagerTest {
+
+    @Test
+    void aplicarFuncaoNumero() {
+        // ABS - VALOR ABSOLUTO, MOD - RESTO DA DIVISÃO, SQRT - RAIZ QUADRADA
+        String jpql = "SELECT ABS(p.total), MOD(p.id, 2), SQRT(p.total) FROM Pedido p WHERE ABS(p.total) > 1000";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+
+        lista.forEach(array -> System.out.println(array[0] + " | " + array[1] + " | " + array[2]));
+    }
 
     @Test
     void aplicarFuncaoData() {

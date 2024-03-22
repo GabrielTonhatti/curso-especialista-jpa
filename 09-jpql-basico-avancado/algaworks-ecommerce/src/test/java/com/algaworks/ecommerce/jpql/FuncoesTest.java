@@ -1,6 +1,7 @@
 package com.algaworks.ecommerce.jpql;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.model.Pedido;
 import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +10,19 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class FuncoesTest extends EntityManagerTest {
+
+    @Test
+    void aplicarFuncaoNativas() {
+        String jpql = "SELECT FUNCTION('dayname', p.dataCriacao) FROM Pedido p WHERE FUNCTION('ACIMA_MEDIA_FATURAMENTO', p.total) = 1";
+
+        TypedQuery<String> typedQuery = entityManager.createQuery(jpql, String.class);
+
+        List<String> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+
+//        lista.forEach(pedido -> System.out.println("ID: " + pedido.getId() + ", Total: " + pedido.getTotal()));
+        lista.forEach(obj -> System.out.println("Dayname: " + obj));
+    }
 
     @Test
     void aplicarFuncaoColecao() {

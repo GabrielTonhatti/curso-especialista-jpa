@@ -12,6 +12,24 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class FuncoesTest extends EntityManagerTest {
 
     @Test
+    void aplicarFuncaoAgregacao() {
+        // AVG, COUNT, MAX, MIN, SUM
+//        String jpql = "SELECT AVG(p.total) FROM Pedido p";
+//        String jpql = "SELECT COUNT(p.dataCriacao) FROM Pedido p";
+//        String jpql = "SELECT MIN(p.total) FROM Pedido p";
+//        String jpql = "SELECT MAX(p.total) FROM Pedido p";
+        String jpql = "SELECT SUM(p.total) FROM Pedido p";
+
+        TypedQuery<Number> typedQuery = entityManager.createQuery(jpql, Number.class);
+
+        List<Number> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+
+//        lista.forEach(pedido -> System.out.println("ID: " + pedido.getId() + ", Total: " + pedido.getTotal()));
+        lista.forEach(obj -> System.out.println("OBJ: " + obj));
+    }
+
+    @Test
     void aplicarFuncaoNativas() {
         String jpql = "SELECT FUNCTION('dayname', p.dataCriacao) FROM Pedido p WHERE FUNCTION('ACIMA_MEDIA_FATURAMENTO', p.total) = 1";
 

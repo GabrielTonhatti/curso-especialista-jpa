@@ -4,7 +4,6 @@ import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.dto.ProdutoDTO;
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.Produto;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.Test;
@@ -14,6 +13,21 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BasicoJPQLTest extends EntityManagerTest {
+
+    @Test
+    void usarDistinct() {
+        String jpql = "SELECT DISTINCT p "
+                + "FROM Pedido p "
+                + "     INNER JOIN p.itens i "
+                + "     INNER JOIN i.produto pro "
+                + "WHERE pro.id IN (1, 2, 3, 4) ";
+
+        TypedQuery<Cliente> typedQuery = entityManager.createQuery(jpql, Cliente.class);
+
+        List<Cliente> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+        System.out.printf("%s%n", lista.size());
+    }
 
     @Test
     void ordernarResultados() {

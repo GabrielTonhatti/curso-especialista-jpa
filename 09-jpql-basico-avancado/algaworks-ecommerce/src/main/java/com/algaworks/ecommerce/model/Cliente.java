@@ -2,6 +2,7 @@ package com.algaworks.ecommerce.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.util.Map;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @SecondaryTable(name = "CLIENTE_DETALHE",
         pkJoinColumns = @PrimaryKeyJoinColumn(name = "CLIENTE_ID"),
         foreignKey = @ForeignKey(name = "FK_CLIENTE_DETALHE_CLIENTE")
@@ -45,6 +47,10 @@ public class Cliente extends EntidadeBaseInteger {
 
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos;
+
+    public Cliente(Integer id) {
+        this.setId(id);
+    }
 
     @PostLoad
     public void configurarPrimeiroNome() {

@@ -1,6 +1,7 @@
 package com.algaworks.ecommerce.jpql;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.Produto;
 import jakarta.persistence.TypedQuery;
@@ -13,6 +14,28 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class ExpressoesCondicionaisTest extends EntityManagerTest {
+
+    @Test
+    void usarExpressaoIN() {
+//        List<Integer> parametros = List.of(1, 3, 4);
+//        String jpql = "SELECT p "
+//                + "FROM Pedido p "
+//                + "WHERE p.id IN (:ids)";
+
+        Cliente cliente1 = new Cliente(1); // entityManager.find(Cliente.class, 1);
+        Cliente cliente2 = new Cliente(2); // entityManager.find(Cliente.class, 2);
+
+        List<Cliente> clientes = List.of(cliente1, cliente2);
+        String jpql = "SELECT p "
+                + "FROM Pedido p "
+                + "WHERE p.cliente IN (:clientes)";
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+        typedQuery.setParameter("clientes", clientes);
+
+        List<Pedido> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+    }
 
     @Test
     void usarExpressaoCase() {

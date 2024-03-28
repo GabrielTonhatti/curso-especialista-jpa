@@ -15,6 +15,31 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class ExpressoesCondicionaisTest extends EntityManagerTest {
 
     @Test
+    void usarExpressaoCase() {
+//        String jpql = "SELECT p.id, "
+//                + "CASE p.status "
+//                + "     WHEN 'PAGO' THEN 'Está pago' "
+//                + "     WHEN 'CANCELADO' THEN 'Foi cancelado' "
+//                + "     ELSE 'Está aguardando' "
+//                + "END "
+//                + "FROM Pedido p";
+        String jpql = "SELECT p.id, "
+                + "CASE TYPE(p.pagamento) "
+                + "     WHEN PagamentoBoleto THEN 'Pago com boleto' "
+                + "     WHEN PagamentoCartao THEN 'Pago com cartão' "
+                + "     ELSE 'Não pago ainda.' "
+                + "END "
+                + "FROM Pedido p";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+
+        lista.forEach(array -> System.out.printf("%s, %s%n", array[0], array[1]));
+    }
+
+    @Test
     void usarExpressaoDiferente() {
         String jpql = "SELECT p FROM Produto p WHERE p.preco <> 100";
 

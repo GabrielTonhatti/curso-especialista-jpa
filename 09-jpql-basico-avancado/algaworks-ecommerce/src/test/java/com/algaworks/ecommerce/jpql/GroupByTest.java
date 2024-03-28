@@ -12,6 +12,29 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class GroupByTest extends EntityManagerTest {
 
     @Test
+    void condicionarAgrupamentoComHaving() {
+        // Total de vendas dentre as categorias que mais vendem.
+        String jpql = "SELECT c.nome, SUM(i.precoProduto) FROM ItemPedido i "
+                + "INNER JOIN i.produto p "
+                + "INNER JOIN p.categorias c "
+                + "GROUP BY c.id "
+                + "HAVING SUM(i.precoProduto) > 100";
+//        String jpql = "SELECT c.nome, SUM(i.precoProduto) FROM ItemPedido i "
+//                + "INNER JOIN i.produto p "
+//                + "INNER JOIN p.categorias c "
+//                + "GROUP BY c.id "
+//                + "HAVING AVG(i.precoProduto) > 1500";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+
+        lista.forEach(array -> System.out.printf("Categoria: %s, Valor: %s%n", array[0], array[1]));
+    }
+
+
+    @Test
     void agruparEFiltrarResultado() {
         // Total de vendas por mês
 //        String jpql = "SELECT CONCAT(YEAR(p.dataCriacao), '/', FUNCTION('monthname', p.dataCriacao)) , SUM(p.total) FROM Pedido p "

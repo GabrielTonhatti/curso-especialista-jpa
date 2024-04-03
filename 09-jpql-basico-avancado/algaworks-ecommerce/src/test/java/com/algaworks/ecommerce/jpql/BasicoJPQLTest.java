@@ -16,11 +16,13 @@ class BasicoJPQLTest extends EntityManagerTest {
 
     @Test
     void usarDistinct() {
-        String jpql = "SELECT DISTINCT p "
-                + "FROM Pedido p "
-                + "     INNER JOIN p.itens i "
-                + "     INNER JOIN i.produto pro "
-                + "WHERE pro.id IN (1, 2, 3, 4) ";
+        String jpql = """
+                SELECT DISTINCT p
+                FROM Pedido p
+                    INNER JOIN p.itens i
+                    INNER JOIN i.produto pro
+                WHERE pro.id IN (1, 2, 3, 4)
+                """;
 
         TypedQuery<Cliente> typedQuery = entityManager.createQuery(jpql, Cliente.class);
 
@@ -38,7 +40,7 @@ class BasicoJPQLTest extends EntityManagerTest {
         List<Cliente> lista = typedQuery.getResultList();
         assertFalse(lista.isEmpty());
         lista.forEach(c -> System.out.println("ID: " + c.getId() + ", Nome: " + c.getNome()));
-   }
+    }
 
     @Test
     void projetarNoDTO() {

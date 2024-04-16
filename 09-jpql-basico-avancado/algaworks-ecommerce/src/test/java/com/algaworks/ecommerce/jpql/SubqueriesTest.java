@@ -3,7 +3,6 @@ package com.algaworks.ecommerce.jpql;
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.Produto;
 import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +13,27 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class SubqueriesTest extends EntityManagerTest {
 
     @Test
-    void usarDistinct() {
+    void pesquisarComIN() {
+        String jpql = """
+               SELECT DISTINCT p
+               FROM Pedido p
+               WHERE p.id IN (SELECT p2.id
+                              FROM ItemPedido i2
+                                       INNER JOIN i2.pedido p2
+                                       INNER JOIN i2.produto pro2
+                              WHERE pro2.preco > 100)
+                """;
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+
+        List<Pedido> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+
+        lista.forEach(pedido -> System.out.printf("ID: %d%n", pedido.getId()));
+    }
+
+    @Test
+    void pesquisarSubqueries() {
         // Bons Clientes. Versão 2.
         String jpql = """
                 SELECT c

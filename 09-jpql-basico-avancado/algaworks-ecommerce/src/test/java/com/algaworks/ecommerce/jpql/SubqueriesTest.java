@@ -14,6 +14,27 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class SubqueriesTest extends EntityManagerTest {
 
     @Test
+    void exercicioPesquisarComIN() {
+        String jpql = """
+               SELECT p
+               FROM Pedido p
+               WHERE p.id IN (SELECT p2.id
+                              FROM ItemPedido i2
+                                       INNER JOIN i2.pedido p2
+                                       INNER JOIN i2.produto pro2
+                                       INNER JOIN pro2.categorias c
+                              WHERE c.id = 2)
+               """;
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+
+        List<Pedido> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+
+        lista.forEach(pedido -> System.out.printf("ID: %d%n", pedido.getId()));
+    }
+
+    @Test
     void pesquisarComExists() {
         String jpql = """
                 SELECT p

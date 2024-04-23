@@ -14,17 +14,44 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class SubqueriesTest extends EntityManagerTest {
 
     @Test
-    void exercicioPesquisarSubqueriesComExists() {
-        // Bons Clientes. Versão 2.
+    void pesquisarComAll() {
+        // Todos os produtos não foram vendidos mais depois que encareceram.
         String jpql = """
-               
                 SELECT p
                 FROM Produto p
-                WHERE EXISTS (SELECT 1
-                              FROM ItemPedido
-                              WHERE produto = p
-                                AND precoProduto <> p.preco)
+                WHERE p.preco > ALL (SELECT precoProduto from ItemPedido WHERE produto = p)
                 """;
+//        String jpql = """
+//                SELECT p
+//                FROM Produto p
+//                WHERE p.preco > (SELECT MAX(precoProduto) from ItemPedido WHERE produto = p)
+//                """;
+
+        // Todos os produtos que sempre foram vendidos pelo preço atual.
+//        String jpql = """
+//                SELECT p
+//                FROM Produto p
+//                WHERE p.preco = ALL (SELECT precoProduto from ItemPedido WHERE produto = p)
+//                """;
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
+
+        List<Produto> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+
+        lista.forEach(produto -> System.out.printf("ID: %d, Nome: %s%n", produto.getId(), produto.getNome()));
+    }
+
+    @Test
+    void exercicioPesquisarSubqueriesComExists() {
+        String jpql = """
+        SELECT p
+        FROM Produto p
+        WHERE EXISTS (SELECT 1
+                      FROM ItemPedido
+                      WHERE produto = p
+                         AND precoProduto <> p.preco)
+        """;
 
         TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
 

@@ -14,6 +14,27 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class SubqueriesTest extends EntityManagerTest {
 
     @Test
+    void exercicioPesquisarSubqueriesComExists() {
+        // Bons Clientes. Versão 2.
+        String jpql = """
+               
+                SELECT p
+                FROM Produto p
+                WHERE EXISTS (SELECT 1
+                              FROM ItemPedido
+                              WHERE produto = p
+                                AND precoProduto <> p.preco)
+                """;
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
+
+        List<Produto> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+
+        lista.forEach(produto -> System.out.printf("ID: %d, Nome: %s%n", produto.getId(), produto.getNome()));
+    }
+
+    @Test
     void exercicioPesquisarSubqueries() {
         // Bons Clientes. Versão 2.
         String jpql = """

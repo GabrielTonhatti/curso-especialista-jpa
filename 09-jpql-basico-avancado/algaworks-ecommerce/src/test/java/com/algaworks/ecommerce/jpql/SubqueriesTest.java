@@ -14,6 +14,24 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class SubqueriesTest extends EntityManagerTest {
 
     @Test
+    void exercicioPesquisarComAll() {
+        // Todos os produtos que sempre foram vendidos pelo mesmo preço.
+        String jpql = """
+                SELECT DISTINCT p
+                FROM ItemPedido i
+                    INNER JOIN i.produto p
+                WHERE i.precoProduto = ALL (SELECT precoProduto from ItemPedido i2 WHERE produto = p AND i2.id <> i.id)
+                """;
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
+
+        List<Produto> lista = typedQuery.getResultList();
+        assertFalse(lista.isEmpty());
+
+        lista.forEach(produto -> System.out.printf("ID: %d, Nome: %s%n", produto.getId(), produto.getNome()));
+    }
+
+    @Test
     void pesquisarComAny() {
         // Podemos usar o ANY ou o SOME
         // Todos os produtos que já foram vendedidos por um preço diferente do atual.

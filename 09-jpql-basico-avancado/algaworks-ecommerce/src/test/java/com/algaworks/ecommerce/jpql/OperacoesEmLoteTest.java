@@ -2,7 +2,7 @@ package com.algaworks.ecommerce.jpql;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Produto;
-import lombok.SneakyThrows;
+import jakarta.persistence.Query;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -17,7 +17,31 @@ class OperacoesEmLoteTest extends EntityManagerTest {
     private static final int LIMITE_INSERCOES = 4;
 
     @Test
-    @SneakyThrows
+    void atualizarEmLote() {
+        entityManager.getTransaction().begin();
+
+//        String jpql = """
+//                UPDATE Produto p
+//                SET p.preco = p.preco + 1
+//                WHERE id BETWEEN 1 AND 10
+//                """;
+        String jpql = """
+                UPDATE Produto p
+                SET p.preco = p.preco + (p.preco * :percentual)
+                WHERE EXISTS (SELECT 1
+                              FROM p.categorias c
+                              WHERE c.id = :categoriaId)
+                """;;
+
+        Query query = entityManager.createQuery(jpql);
+        query.setParameter("categoriaId", 2);
+        query.setParameter("percentual", BigDecimal.valueOf(0.1));
+        query.executeUpdate();
+
+        entityManager.getTransaction().commit();
+    }
+
+    @Test
     void inserirEmLote() {
         InputStream in = OperacoesEmLoteTest.class.getClassLoader().getResourceAsStream("produtos/importar.txt");
 

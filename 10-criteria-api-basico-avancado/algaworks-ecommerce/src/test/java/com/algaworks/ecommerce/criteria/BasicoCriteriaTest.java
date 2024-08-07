@@ -17,6 +17,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class BasicoCriteriaTest extends EntityManagerTest {
 
     @Test
+    void projetarOResultado() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Produto> root = criteriaQuery.from(Produto.class);
+
+        criteriaQuery.multiselect(root.get("id"), root.get("nome"));
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Object[]> produtos = typedQuery.getResultList();
+        produtos.forEach(arr -> System.out.println("ID: " + arr[0] + ", Nome: " + arr[1]));
+
+        assertFalse(produtos.isEmpty());
+    }
+
+
+    @Test
     void retornarTodosOsProdutosExercicio() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
